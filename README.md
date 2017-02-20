@@ -16,4 +16,6 @@ remote login your pi, find the ip of pi , ssh pi@your-pi-ip ,default pwd: rashpb
 wget https://raw.githubusercontent.com/95uxin/ss-redir-on-raspberry-script/master/rashpi_ss-redir.sh
 
 run as root
+```
 # bash rashpi_ss-redir.sh
+```
