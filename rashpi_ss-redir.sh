@@ -2,11 +2,13 @@
 #succeeded on raspbian 8.7 2017-1-11
 #only one network interface
 
+######Insert Here#######
 SERVER_ADDRESS=''
 SERVER_PORT=''
 SERVER_PWD=''
-LOCAL_PORT=''
 ENCRYPT_METHOD=''
+LOCAL_PORT=''
+#######################
 
 NET_IF='eth0'
 
