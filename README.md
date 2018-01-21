@@ -43,8 +43,3 @@ LOCAL_PORT='your ss-redir local port like 1080'
 
 * Test and Have Fun!
 
-# No monitor Help!
-
-## remote control your Pi
-
-## connect your Pi to Internet
