@@ -1,13 +1,14 @@
 #!/bin/sh
 #succeeded on raspbian 8.7 2017-1-11
 #only one network interface
+#modify for me 20180424
 
 ######Insert Here#######
 SERVER_ADDRESS=''
-SERVER_PORT=''
+SERVER_PORT='9001'
 SERVER_PWD=''
-ENCRYPT_METHOD=''
-LOCAL_PORT=''
+ENCRYPT_METHOD='aes-256-cfb'
+LOCAL_PORT='1090'
 #######################
 
 NET_IF='eth0'
@@ -32,9 +33,9 @@ sysctl -p
 config_interface() {
 cat >> /etc/dhcpcd.conf <<EOF
 interface $NET_IF
-static ip_address=192.168.1.2/24
-static routers=192.168.1.1
-static domain_name_servers=192.168.1.2
+static ip_address=192.168.88.2/24
+static routers=192.168.88.1
+static domain_name_servers=192.168.88.2
 EOF
 }
 
@@ -63,15 +64,15 @@ INTERFACES='$NET_IF'
 EOF
 #configure subnet
 cat >> /etc/dhcp/dhcpd.conf <<EOF
-subnet 192.168.1.0 netmask 255.255.255.0 {
-    range 192.168.1.60 192.168.1.240;
+subnet 192.168.88.0 netmask 255.255.255.0 {
+    range 192.168.88.60 192.168.88.240;
     default-lease-time 86400;
     max-lease-time 86400;
-    option routers 192.168.1.2;
+    option routers 192.168.88.2;
     option ip-forwarding off;
-    option broadcast-address 192.168.1.255;
+    option broadcast-address 192.168.88.255;
     option subnet-mask 255.255.255.0;
-    option domain-name-servers 192.168.1.2;
+    option domain-name-servers 192.168.88.2;
 }
 EOF
 }
@@ -80,7 +81,7 @@ setup_iptables() {
 #add iptables
 iptables -t nat -N SHADOWSOCKS
 
-iptables -t nat -A POSTROUTING -j SNAT --to-source 192.168.1.2
+iptables -t nat -A POSTROUTING -j SNAT --to-source 192.168.88.2
 iptables -t nat -A SHADOWSOCKS -d $SERVER_ADDRESS -j RETURN
 
 iptables -t nat -A SHADOWSOCKS -d 0.0.0.0/8 -j RETURN
